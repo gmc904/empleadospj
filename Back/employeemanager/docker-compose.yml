@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  mysql-employee:
+    container_name: mysql-employee
+    image: mysql:8
+    ports:
+      - 3307:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_USER=luis
+      - MYSQL_DATABASE=employeemanager
+  backend-employee:
+    container_name: backend-employee
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 3001:8080
+    depends_on:
+      - mysql-employee
